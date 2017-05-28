@@ -34,12 +34,14 @@ def read_temp():
 while True:
     t  = read_temp()
     ts = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    with open("temperature.txt", "a") as myfile:
+    with open("/home/pi/temperature/temperature.txt", "a") as myfile:
         myfile.write(ts + ' ' + str(t) + "\n")
     db = MySQLDatabase('temperature', user='temperature',passwd='hothothot')
     query = 'INSERT into temperature (temperature, time) values ("'+str(t)+'", NOW())'
     db.execute_sql(query)
     file = open('/var/www/html/temperature/index.html','w')
-    file.write('{ "temperature": '+str(t)+' }')
+    file.write(str(t))
     file.close()
-    time.sleep(60)
+    # time.sleep(60)
+    print(ts + ' T = ' + str(t))
+    exit()
