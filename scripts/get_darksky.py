@@ -25,8 +25,8 @@ if (time.time() - sunrise > 0): sunrise = data['daily']['data'][1]['sunriseTime'
 
 # Convert to a usable format
 london  = pytz.timezone("Etc/Greenwich")
-dt_rise = london.localize(datetime.datetime.fromtimestamp(int(sunrise) + 3600))
-dt_set  = london.localize(datetime.datetime.fromtimestamp(int(sunset) + 3600))
+dt_rise = london.localize(datetime.datetime.fromtimestamp(int(sunrise)))
+dt_set  = london.localize(datetime.datetime.fromtimestamp(int(sunset)))
 
 sunrise = str(dt_rise.strftime('%H:%M'))
 sunset = str(dt_set.strftime('%H:%M'))
@@ -58,6 +58,7 @@ td = (hourly_time[rainindex] - time.time())/(3600.0)
 td = round(td, 1)
 nextrain = 'T-' + str(td) + 'h'
 if (rainindex == -1) : nextrain = 'DRY'
+if (abs(td) < 1) : nextrain = 'NOW'
 
 scroll = nextrain + '     ' + sunrise + '     ' + sunset + '     '
 print(scroll)
@@ -65,4 +66,10 @@ file = open('/var/www/html/darksky/scroll/index.html', 'w')
 file.write(scroll)
 file.close()
 
+file = open('/var/www/html/darksky/sunrise/index.html', 'w')
+file.write(sunrise)
+file.close()
 
+file = open('/var/www/html/darksky/sunset/index.html', 'w')
+file.write(sunset)
+file.close()
