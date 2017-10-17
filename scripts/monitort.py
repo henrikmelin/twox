@@ -1,7 +1,4 @@
-import os
-import glob
-import time
-import subprocess
+import os, glob, time, subprocess, urllib2, urllib
 from time import gmtime, strftime
 from peewee import *
  
@@ -42,6 +39,10 @@ while True:
     file = open('/var/www/html/temperature/index.html','w')
     file.write(str(t))
     file.close()
+
+    args = {'location': os.getenv('TWOX_LOG_LOCATION'), 'event': 'temperature', 'value': t}
+    response = urllib2.urlopen('http://piserver/log/?' + urllib.urlencode(args))
+
     # time.sleep(60)
     print(ts + ' T = ' + str(t))
     exit()
