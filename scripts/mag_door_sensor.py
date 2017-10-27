@@ -9,10 +9,10 @@ home      = os.getenv('HOME')
 
 # Log a change of door state to our log server
 def log_door(state) :
-    event = 'door-closed'
-    if (state == True) : event = 'door-opened'
+    event = 'closed'
+    if (state == True) : event = 'opened'
     try:
-        args = {'location': location, 'event': 'opened'}
+        args = {'location': location, 'event': event}
         response = urllib2.urlopen('http://' + server + '/log/?' + urllib.urlencode(args))
     except:
         print('Could not log!')
