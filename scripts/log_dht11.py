@@ -3,11 +3,15 @@ import Adafruit_DHT, urllib2, os, urllib
 server   = os.getenv('TWOX_LOG_SERVER')
 location = os.getenv('TWOX_LOG_DHT11_LOCATION')
 sensor	 = Adafruit_DHT.DHT11
-gpio	 = 6
+gpio	 = int(os.getenv('TWOX_DHT11_PIN'))
 
 # Do a number of readings, and store the result
 hs = []
 ts = []
+# Retrieve 
+for i in range(10) :
+    h, t = Adafruit_DHT.read_retry(sensor, gpio)
+    print("Warming up!")
 for i in range(20) :
     h, t = Adafruit_DHT.read_retry(sensor, gpio)
     print('Humidity ' + str(h) + '%, Temperature ' + str(t) + 'C') 
