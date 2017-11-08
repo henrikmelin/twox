@@ -3,10 +3,10 @@
 import datetime, json, time, urllib, pytz, os
 
 # These are the Darksky credentials and location, set in .bashrc
-key = os.environ.get('DARKSKY_KEY')
-lat = os.environ.get('DARKSKY_LATITUDE')
-lon = os.environ.get('DARKSKY_LONGITUDE')
-lim = float(os.environ.get('DARKSKY_PRECIPITATION_LIMIT'))
+key = os.getenv('DARKSKY_KEY')
+lat = os.getenv('DARKSKY_LATITUDE')
+lon = os.getenv('DARKSKY_LONGITUDE')
+lim = float(os.getenv('DARKSKY_PRECIPITATION_LIMIT'))
 
 # Request data from darksky.net
 url = 'https://api.darksky.net/forecast/' + key + '/' + lat + ',' + lon + '?units=si'
