@@ -6,6 +6,7 @@ import datetime, json, time, urllib, pytz, os
 key = os.environ.get('DARKSKY_KEY')
 lat = os.environ.get('DARKSKY_LATITUDE')
 lon = os.environ.get('DARKSKY_LONGITUDE')
+lim = float(os.environ.get('DARKSKY_PRECIPITATION_LIMIT'))
 
 # Request data from darksky.net
 url = 'https://api.darksky.net/forecast/' + key + '/' + lat + ',' + lon + '?units=si'
@@ -51,7 +52,7 @@ for value in data['hourly']['data']:
 rainindex = -1
 index = 0
 for value in hourly_precip:
-	if ((value > 0.33) and (rainindex == -1)): rainindex = index
+	if ((value > lim) and (rainindex == -1)): rainindex = index
 	index += 1
 
 td = (hourly_time[rainindex] - time.time())/(3600.0)
