@@ -11,7 +11,7 @@ ts = []
 # Retrieve 
 for i in range(10) :
     h, t = Adafruit_DHT.read_retry(sensor, gpio)
-    print("Warming up!")
+    print('Warming up, humidity ' + str(h) + '%, Temperature ' + str(t) + 'C') 
 for i in range(20) :
     h, t = Adafruit_DHT.read_retry(sensor, gpio)
     print('Humidity ' + str(h) + '%, Temperature ' + str(t) + 'C') 
