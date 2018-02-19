@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-import SocketServer, urlparse, twox
+import SocketServer, urlparse
 
-class TWOXlistener(BaseHTTPRequestHandler):
+class TWOXhandler(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -10,6 +10,9 @@ class TWOXlistener(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
+
+        # If we need to have vars defined, override this...
+        self.set_vars()
         
         # Get the query variables
         args = urlparse.parse_qs(urlparse.urlparse(self.path).query)        
@@ -23,16 +26,25 @@ class TWOXlistener(BaseHTTPRequestHandler):
         # Pull out event name and value and process it
         event = args['event'][0]
         value = args['value'][0]
-        helper = twox.twox()
-        ret = helper.process_event(event, value)
-
+        ret = self.event_handler(event, value)
+		
         # Provide some feedback on the request
         output = '0' 
         if (ret == True) : output = '1'
         self.wfile.write(output)
 
-if __name__ == "__main__":
-    httpd = HTTPServer(('', 8081), TWOXlistener)
-    print 'Listening on :8081...'
-    httpd.serve_forever()
+	def event_handler(self, event, value) : 
+		print("Class method not overridden!")
+		return False	
+	
+	def set_vars() :
+	    return False
+
+def start_event_server(handler, port=8081) : 
+	httpd = HTTPServer(('', port), handler)
+	print("Starting httpd server on " + str(port))
+	httpd.serve_forever()
+
+
+
     
