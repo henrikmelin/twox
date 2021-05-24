@@ -76,7 +76,7 @@ runuser -l pi -c 'sh /home/pi/capture.sh'
 ```
 Go to `http://<IP of pi>.local:8581` and log in using admin/admin and then add this to HomeKit using hte QR code and pin (as set in the config.json file)
 
-# Add Dropbox upload support
+### Add Dropbox upload support
 
 Since this script will generate lots of images that are overwritten, it may be good to store them somewhere to build time-lapses etc. Storing them on Dropbox also provides off-site storage if you wann use this for monitoring. 
 
