@@ -3,12 +3,12 @@
 
 ## Install HDR Homebridge camera
 
-
+By taking a range of images with a range of exposure times, the Raspberry Pi can generate a [High Dynamic Range](https://en.wikipedia.org/wiki/High_dynamic_range) images. These provide much better contrast than the automatic exposure provided by the cameras, in particurlar where the lighting conditions are stark (e.g. sunlight and shadows). 
 
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install screen vim imagemagick git ffmpeg enfuse
+sudo apt-get install screen vim imagemagick git ffmpeg enfuse python3-pip
 
 ```
 
@@ -76,4 +76,19 @@ runuser -l pi -c 'sh /home/pi/capture.sh'
 ```
 Go to `http://<IP of pi>.local:8581` and log in using admin/admin and then add this to HomeKit using hte QR code and pin (as set in the config.json file)
 
+# Add Dropbox upload support
 
+Since this script will generate lots of images that are overwritten, it may be good to store them somewhere to build time-lapses etc. Storing them on Dropbox also provides off-site storage if you wann use this for monitoring. 
+
+Add a new app using the Dropbox API, and set the app to have write permissions, then generate the Access Key. Then add this to the `.bashrc`:
+
+```bash
+export DROPBOX_ACCESS_TOKEN="**TheAccessKey**"
+export CAMERA_LOCATION="name-of-room"
+
+```
+And then uncomment the line in `capture.sh` that starts with `python3 upload2dropbox.py`. This requires:
+```
+pip3 install dropbox
+```
+The files will upload to the folder called `picameras` but that can be changed in `capture.sh`.
