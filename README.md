@@ -18,7 +18,9 @@ Get the latest node.js install for Raspberry Pi Zero from [here](https://github.
 
 Install homebridge and the ffmepg plugin, and the ui-x component that provides the service:
 ```bash
-sudo npm install -g homebridge homebridge-config-ui-x homebridge-camera-ffmpeg
+sudo npm install -g homebridge 
+sudo npm install -g homebridge-config-ui-x
+sudo npm install -g homebridge-camera-ffmpeg
 ```
 Update the `.bashrc`:
 ```bash
@@ -78,7 +80,7 @@ Go to `http://<IP of pi>.local:8581` and log in using admin/admin and then add t
 
 ### Add Dropbox upload support
 
-Since this script will generate lots of images that are overwritten, it may be good to store them somewhere to build time-lapses etc. Storing them on Dropbox also provides off-site storage if you wann use this for monitoring. 
+Since this script will generate lots of images that are overwritten, it may be good to store them somewhere to build time-lapses etc. Storing them on Dropbox also provides off-site storage if you wanna use this for monitoring. 
 
 Add a new app using the Dropbox API, and set the app to have write permissions, then generate the Access Key. Then add this to the `.bashrc`:
 
