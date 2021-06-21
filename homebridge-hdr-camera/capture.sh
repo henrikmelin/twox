@@ -13,10 +13,11 @@ do
 
     # Save the file to Dropbox
     FOLDER="$(date +"%Y_%m_%d")" 
+    HOUR="$(date +"%H")" 
     FILE_NAME="$(date +"%FT%T.jpg")"
-    OUTFILE="/picams/"$CAMERA_LOCATION"/"$FOLDER"/"$FILE_NAME
+    OUTFILE="/picams/"$CAMERA_LOCATION"/"$FOLDER"/"$HOUR"/"$FILE_NAME
     echo $OUTFILE
-    # python3 upload2drobox.py --i hdr_latest.jpg --o "$(echo $OUTFILE)"
+    python3 upload2drobox.py --i hdr_latest.jpg --o "$(echo $OUTFILE)"
     
     # Calculate how long all this took
     end_time="$(date -u +%s)"
